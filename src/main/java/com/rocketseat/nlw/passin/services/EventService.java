@@ -1,14 +1,17 @@
 package com.rocketseat.nlw.passin.services;
 
+import com.rocketseat.nlw.passin.domain.attendee.Attendee;
 import com.rocketseat.nlw.passin.domain.event.Event;
 import com.rocketseat.nlw.passin.dto.event.EventIdDTO;
 import com.rocketseat.nlw.passin.dto.event.EventRequestDTO;
+import com.rocketseat.nlw.passin.dto.event.EventResponseDTO;
 import com.rocketseat.nlw.passin.repositories.AttendeeRepository;
 import com.rocketseat.nlw.passin.repositories.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.text.Normalizer;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +44,12 @@ public class EventService {
                 .replaceAll("[^\\w\\s]", "") // Remove non-textual characters
                 .replaceAll("\\s+", "-") // Replace one or more white space(s) with hyphen
                 .toLowerCase();
+    }
+
+    public EventResponseDTO getDetails(String eventId) {
+        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found with ID: " + eventId));
+        List<Attendee> attendeeList = this.attendeeRepository.findByEventId(eventId);
+
+        return new EventResponseDTO(event, attendeeList.size());
     }
 }
