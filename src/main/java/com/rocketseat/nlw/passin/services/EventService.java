@@ -2,6 +2,7 @@ package com.rocketseat.nlw.passin.services;
 
 import com.rocketseat.nlw.passin.domain.attendee.Attendee;
 import com.rocketseat.nlw.passin.domain.event.Event;
+import com.rocketseat.nlw.passin.domain.event.exception.EventNotFoundException;
 import com.rocketseat.nlw.passin.dto.event.EventIdDTO;
 import com.rocketseat.nlw.passin.dto.event.EventRequestDTO;
 import com.rocketseat.nlw.passin.dto.event.EventResponseDTO;
@@ -47,7 +48,7 @@ public class EventService {
     }
 
     public EventResponseDTO getDetails(String eventId) {
-        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new RuntimeException("Event not found with ID: " + eventId));
+        Event event = this.eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException("Event not found with ID: " + eventId));
         List<Attendee> attendeeList = this.attendeeRepository.findByEventId(eventId);
 
         return new EventResponseDTO(event, attendeeList.size());
