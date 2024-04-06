@@ -1,5 +1,5 @@
 <h1 align="center">
-  Pass.in Back-end
+  <span id="pass-in">Pass.in</span> Back-end
   <img src="docs/insignia.ico" width="32">
 </h1>
 
@@ -88,4 +88,4 @@ and each person can generate their credential to access the event.
 
 ---
 
-<p align="right"><a href="  #--passin-back-end--">back to top ↑</a></p>
+<p align="right"><a href="#pass-in">back to top ↑</a></p>
