@@ -57,6 +57,11 @@ and each person can generate their credential to access the event.
 - Attendees can only register for events with available places;
 - The attendees can only check-in to an event once;
 
+### Database model
+<p  align="center">
+  <img src="./docs/dbmodel.png" alt="Database model">
+</p>
+
 ## Collection
 
 [
@@ -83,4 +88,4 @@ and each person can generate their credential to access the event.
 
 ---
 
-<p align="right"><a href="#--passin-back-end--">back to top ↑</a></p>
+<p align="right"><a href="  #--passin-back-end--">back to top ↑</a></p>
