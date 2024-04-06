@@ -1,6 +1,7 @@
 package com.rocketseat.nlw.passin.services;
 
 import com.rocketseat.nlw.passin.domain.attendee.Attendee;
+import com.rocketseat.nlw.passin.domain.attendee.exception.AttendeeAlreadySubscribedException;
 import com.rocketseat.nlw.passin.domain.checkin.CheckIn;
 import com.rocketseat.nlw.passin.dto.attendee.AttendeeDetails;
 import com.rocketseat.nlw.passin.dto.attendee.AttendeesListResponseDTO;
@@ -36,4 +37,15 @@ public class AttendeeService {
 
         return new AttendeesListResponseDTO(attendeeDetailsList);
     }
+
+    public void save(Attendee attendee) {
+        this.attendeeRepository.save(attendee);
+    }
+
+    public void verifyAttendeeSubscription(String email, String eventId) {
+        Optional<Attendee> attendee = this.attendeeRepository.findByEventIdAndEmail(eventId, email);
+
+        if (attendee.isPresent()) throw new AttendeeAlreadySubscribedException("Attendee is already registered.");
+    }
+
 }
