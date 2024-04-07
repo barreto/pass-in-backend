@@ -83,6 +83,7 @@ public class EventService {
     }
 
     private Event findEventById(String eventId) {
-        return this.eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException("Event not found with ID: " + eventId));
+        return this.eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException("Event not found with ID: " + eventId));
     }
 }
