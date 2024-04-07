@@ -44,7 +44,7 @@ public class EventService {
         String normalized = Normalizer.normalize(text, Normalizer.Form.NFD);
 
         return normalized
-                .replaceAll("[\\p{InCOMBINING_DIACRITICAL_MARKS}]", "") // Remove accentuation
+                .replaceAll("\\p{InCOMBINING_DIACRITICAL_MARKS}", "") // Remove accentuation
                 .replaceAll("[^\\w\\s]", "") // Remove non-textual characters
                 .replaceAll("\\s+", "-") // Replace one or more white space(s) with hyphen
                 .toLowerCase();
