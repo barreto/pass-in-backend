@@ -13,20 +13,16 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ExceptionEntityHandler {
-    @ExceptionHandler(EventNotFoundException.class)
-    public ResponseEntity<String> handleEventNotFoundException(EventNotFoundException e) {
-        return ResponseEntity.notFound().build();
+    @ExceptionHandler({EventNotFoundException.class, AttendeeNotFoundException.class})
+    public ResponseEntity<ErrorResponseDTO> handleNotFoundExceptions(RuntimeException e) {
+        ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponseDTO);
     }
 
     @ExceptionHandler(FullEventException.class)
     public ResponseEntity<ErrorResponseDTO> handleFullEventException(FullEventException e) {
         ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(e.getMessage());
         return ResponseEntity.badRequest().body(errorResponseDTO);
-    }
-
-    @ExceptionHandler(AttendeeNotFoundException.class)
-    public ResponseEntity<String> handleAttendeeNotFoundException(AttendeeNotFoundException e) {
-        return ResponseEntity.notFound().build();
     }
 
     @ExceptionHandler(AttendeeAlreadySubscribedException.class)
