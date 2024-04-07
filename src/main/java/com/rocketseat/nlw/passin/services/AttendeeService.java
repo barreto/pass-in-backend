@@ -52,7 +52,7 @@ public class AttendeeService {
     }
 
     public AttendeeBadgeResponseDTO getAttendeeBadge(String attendeeId, UriComponentsBuilder uriComponentsBuilder) {
-        Attendee attendee = getAttendee(attendeeId);
+        Attendee attendee = findAttendeeById(attendeeId);
 
         var uri = uriComponentsBuilder.path("/attendees/{attendeeId}/check-in").buildAndExpand(attendeeId).toUri();
 
@@ -67,12 +67,12 @@ public class AttendeeService {
     }
 
     public void checkInAttendee(String attendeeId) {
-        Attendee attendee = this.getAttendee(attendeeId);
+        Attendee attendee = this.findAttendeeById(attendeeId);
 
         this.checkInService.registerCheckIn(attendee);
     }
 
-    private Attendee getAttendee(String attendeeId) {
+    private Attendee findAttendeeById(String attendeeId) {
         return this.attendeeRepository.findById(attendeeId).orElseThrow(() -> new AttendeeNotFoundException("Attendee not found with id: " + attendeeId));
     }
 }
