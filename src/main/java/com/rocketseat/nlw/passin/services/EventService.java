@@ -51,7 +51,7 @@ public class EventService {
     }
 
     public EventResponseDTO getDetails(String eventId) {
-        Event event = this.getEventById(eventId);
+        Event event = this.findEventById(eventId);
         List<Attendee> attendeeList = this.attendeeService.findAllAttendeesByEvent(eventId);
 
         return new EventResponseDTO(event, attendeeList.size());
@@ -60,7 +60,7 @@ public class EventService {
     public AttendeeIdDTO subscribeAttendeeOnEvent(String eventId, AttendeeRequestDTO attendeeRequestDTO) {
         this.attendeeService.verifyAttendeeSubscription(attendeeRequestDTO.email(), eventId);
 
-        Event event = getEventById(eventId);
+        Event event = findEventById(eventId);
         List<Attendee> attendeeList = this.attendeeService.findAllAttendeesByEvent(eventId);
 
         if (event.getMaximumAttendees() <= attendeeList.size()) throw new FullEventException("The event is full.");
@@ -82,7 +82,7 @@ public class EventService {
         return attendee;
     }
 
-    private Event getEventById(String eventId) {
+    private Event findEventById(String eventId) {
         return this.eventRepository.findById(eventId).orElseThrow(() -> new EventNotFoundException("Event not found with ID: " + eventId));
     }
 }
