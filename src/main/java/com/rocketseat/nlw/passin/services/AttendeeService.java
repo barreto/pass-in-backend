@@ -73,6 +73,7 @@ public class AttendeeService {
     }
 
     private Attendee findAttendeeById(String attendeeId) {
-        return this.attendeeRepository.findById(attendeeId).orElseThrow(() -> new AttendeeNotFoundException("Attendee not found with id: " + attendeeId));
+        return this.attendeeRepository.findById(attendeeId)
+                .orElseThrow(() -> new AttendeeNotFoundException("Attendee not found with id: " + attendeeId));
     }
 }
