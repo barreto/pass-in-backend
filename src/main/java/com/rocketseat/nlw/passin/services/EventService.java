@@ -65,15 +65,21 @@ public class EventService {
 
         if (event.getMaximumAttendees() <= attendeeList.size()) throw new FullEventException("The event is full.");
 
+        Attendee attendee = this.buildAttendee(attendeeRequestDTO, event);
+
+        this.attendeeService.save(attendee);
+
+        return new AttendeeIdDTO(attendee.getId());
+    }
+
+    private Attendee buildAttendee(AttendeeRequestDTO attendeeRequestDTO, Event event) {
         Attendee attendee = new Attendee();
         attendee.setName(attendeeRequestDTO.name());
         attendee.setEmail(attendeeRequestDTO.email());
         attendee.setEvent(event);
         attendee.setCreatedAt(LocalDateTime.now());
 
-        this.attendeeService.save(attendee);
-
-        return new AttendeeIdDTO(attendee.getId());
+        return attendee;
     }
 
     private Event getEventById(String eventId) {
