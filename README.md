@@ -59,7 +59,7 @@ and each person can generate their credential to access the event.
 
 ### Database model
 <p  align="center">
-  <img src="./docs/dbmodel.png" alt="Database model">
+  <img src="./docs/dbmodel.svg" alt="Database model">
 </p>
 
 ## Collection
